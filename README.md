@@ -93,6 +93,7 @@ Other models can be trained by replacing 'BaselineCNN' with any other model in m
 Configuration options such as batch_size, learning_rate, and num_epochs can be changed by changing the values in config.py.
 
 ## Testing
+Note: The saved models are stored on Google Drive at https://drive.google.com/drive/folders/1lXH1YvrLoAZZz-ZtJ0oFuQaKEdJdVsH1?usp=sharing
 To test the 'BaselineCNN' model, you can run the following command from within the src folder --
 ```bash
 python main.py test BaselineCNN
