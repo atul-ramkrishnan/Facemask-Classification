@@ -41,7 +41,7 @@
 │      ├── 0.jpg
 │      └── 1.jpg
 ├── saved_models
-│  └── SimpleCNN.pth
+│  └── BaselineCNN.pth
 └── src
     ├── config.py
     ├── demo.py
