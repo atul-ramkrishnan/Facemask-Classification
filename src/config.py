@@ -1,0 +1,9 @@
+epochs = 10
+data_dir = '../Dataset'
+demo_dir = '../demo'
+lr = 0.001
+batch_size = 32
+saved_models_dir = '../saved_models'
+device = 'cpu'
+test_dataset_ratio = 0.2
+val_dataset_ratio = 0.2
