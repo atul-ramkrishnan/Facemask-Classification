@@ -79,6 +79,7 @@ src/util_get_dataloaders.py -- Contains code for creating the train/val/test dat
 
 src/util/visualize.py -- Contains code for plotting various graphs and for displaying images
 
+# Phase 1
 
 ## Training
 
@@ -93,7 +94,7 @@ Other models can be trained by replacing 'BaselineCNN' with any other model in m
 Configuration options such as batch_size, learning_rate, and num_epochs can be changed by changing the values in config.py.
 
 ## Testing
-Note: The saved models are stored on Google Drive at https://drive.google.com/drive/folders/1lXH1YvrLoAZZz-ZtJ0oFuQaKEdJdVsH1?usp=sharing
+Note: The saved models are stored on Google Drive at https://drive.google.com/drive/folders/1xmr2QBHwQVoZsbPXW_h5Lh6oXwj3orKE?usp=sharing
 
 To test the 'BaselineCNN' model, you can run the following command from within the src folder --
 ```bash
@@ -108,6 +109,8 @@ You can compare the ground truths and predicted values for any image by running 
 ```bash
 python main.py demo BaselineCNN
 ```
+# Phase 2
+Note: Datasets before and after bias correction, the test set used for bias detection, the models before and after bias correction are available on the drive at https://drive.google.com/drive/folders/1QIpJSZywwqbHIpnIs_wH0FdGfMIQ7g1_?usp=sharing
 
 ## Bias testing
 To test if the model has a bias, you need to create a folder with different subsets in their respective folders. Once that is done, you need to specify the directory in bias_test_dir in config.py. Finally, you can obtain the results by running the following command from within the src folder --
