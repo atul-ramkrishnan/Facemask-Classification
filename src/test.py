@@ -30,7 +30,7 @@ def test(model, dataloader, classes, device, model_path):
     """
     print("STARTING TEST...")
     print("==================================================")
-
+    torch.manual_seed(0)
     model.load_state_dict(torch.load(Path(model_path), map_location='cpu'))
     model.to(device)
     correct_class_map = {label: 0 for label in classes}
@@ -40,6 +40,7 @@ def test(model, dataloader, classes, device, model_path):
 
     predlist = torch.zeros(0, dtype=torch.long, device='cpu')
     labellist = torch.zeros(0, dtype=torch.long, device='cpu')
+    model.eval()
 
     with torch.no_grad():
         for images, labels in dataloader:
@@ -58,7 +59,7 @@ def test(model, dataloader, classes, device, model_path):
                 pred_class_map[classes[label]] += 1
 
     print("TEST ACCURACY \n")
-    printAccuracy(correct, correct_class_map, total, pred_class_map)
+    getAccuracy(correct, correct_class_map, total, pred_class_map)
 
     print("\n")
     print("CONFUSION MATRIX \n")
@@ -69,7 +70,7 @@ def test(model, dataloader, classes, device, model_path):
     print(classification_report(labellist, predlist, target_names=classes))
 
 
-def printAccuracy(correct, correct_pred, total, total_pred):
+def getAccuracy(correct, correct_pred, total, total_pred):
     """
     Prints the accuracy for each target class
 
@@ -86,12 +87,17 @@ def printAccuracy(correct, correct_pred, total, total_pred):
 
     Returns
     -------
-    None
+    class_accuracies: list
+    aggregate_accuracy: float
     """
+    class_accuracies = []
     print(F"Accuracy on the {total} test images: {100 * correct / total}\n")
     for label, correct_count in correct_pred.items():
         accuracy = 100 * float(correct_count) / total_pred[label]
+        class_accuracies.append(accuracy)
         print("Accuracy for class {:5s} is: {:.1f} %".format(label, accuracy))
+
+    return class_accuracies, (100 * correct / total)
 
 
 def showConfusionMatrix(classes, labels, predlist):

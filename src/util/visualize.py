@@ -62,6 +62,5 @@ def plot(img, target, predicted):
     npimg = img.numpy()
     plt.title("Ground Truth vs Prediction")
     plt.xlabel("Predicted: " + predicted + "\n" + "Target:" + target)
-    print(npimg)
     plt.imshow(np.transpose(npimg, (1, 2, 0)))
     plt.show()

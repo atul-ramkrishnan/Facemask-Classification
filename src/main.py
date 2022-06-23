@@ -2,8 +2,8 @@ import torch.nn as nn
 from torch.optim import Adam
 import sys
 from models import models
-from util.get_dataloaders import get_dataloaders
-from train import train
+from util.get_dataloaders import get_data
+from train import train, train_kfold
 from test import test
 from demo import demo
 import config
@@ -25,16 +25,33 @@ if __name__ == '__main__':
     else:
         model = models.CNNThreeLayerMaxPooling()
 
-    trainloader, valloader, testloader, classes = get_dataloaders(config.data_dir, config.batch_size)
+    if operation == "train_kfold":
+        dataset, classes = get_data(config.data_dir, False, True)
+    elif operation == 'test_bias':
+        testloader, classes = get_data(config.bias_test_dir, True, False, config.batch_size)
+    else:
+        trainloader, valloader, testloader, classes = get_data(config.data_dir, False, False, config.batch_size)
+
     if operation == "train":
-        # Select the loss criterion and optimizer
         criterion = nn.CrossEntropyLoss()
         optimizer = Adam(model.parameters())
         train(model, config.epochs, criterion, optimizer, trainloader, valloader, config.device,
               config.saved_models_dir + '/' + mtype + '.pth')
+
+    elif operation == "train_kfold":
+        criterion = nn.CrossEntropyLoss()
+        optimizer = Adam(model.parameters())
+        train_kfold(model, config.epochs, config.num_folds, criterion, optimizer, dataset, config.device,
+                    classes, config.saved_models_dir + '/' + mtype)
+
     elif operation == "test":
         test(model, testloader, classes, config.device, config.saved_models_dir + '/' + mtype + '.pth')
+
+    elif operation == "test_bias":
+        test(model, testloader, classes, config.device, config.saved_models_dir + '/' + mtype + '.pth')
+
     elif operation == "demo":
         demo(model, classes, config.device, config.saved_models_dir + '/' + mtype + '.pth', config.demo_dir)
+
     else:
         raise ValueError('Invalid operation.')

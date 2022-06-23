@@ -1,9 +1,11 @@
-epochs = 10
-data_dir = '../Dataset'
-demo_dir = '../demo'
+epochs = 6
+data_dir = '../Dataset_post_bias_correction'
+demo_dir = '../Test_age/old'
 lr = 0.001
 batch_size = 32
 saved_models_dir = '../saved_models'
 device = 'cpu'
 test_dataset_ratio = 0.2
 val_dataset_ratio = 0.2
+num_folds = 10
+bias_test_dir = '../Test_gender/male'
