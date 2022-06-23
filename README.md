@@ -108,4 +108,16 @@ You can compare the ground truths and predicted values for any image by running 
 ```bash
 python main.py demo BaselineCNN
 ```
-Other models can be used by replacing 'BaselineCNN' with any other model in models.py
+
+## Bias testing
+To test if the model has a bias, you need to create a folder with different subsets in their respective folders. Once that is done, you need to specify the directory in bias_test_dir in config.py. Finally, you can obtain the results by running the following command from within the src folder --
+```bash
+python main.py test_bias CNNThreeLayerMaxPooling
+```
+
+## K-fold cross-validation
+To do K-fold cross validation, you can run the following command from within the src folder --
+```bash
+python main.py train_kfold CNNThreeLayerMaxPooling
+```
+The number of folds can be changed by changing the value of num_folds in config.py
